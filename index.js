@@ -27,6 +27,8 @@ let selectedDate = {};
 const movieForm = document.querySelector("#movie-form");
 movieForm.addEventListener("submit", addMovie);
 
+const movieList = document.getElementById("movie-list");
+
 function addMovie(e) {
   e.preventDefault();
   const formData = new FormData(movieForm);
@@ -57,5 +59,20 @@ function displayMovie(date) {
   let movie = movies.find((m) => {
     return m.date === date;
   });
-  console.log("movie", movie);
+
+  if (movie) {
+    movieList.innerHTML = `
+    <div>
+  <h3>${movie.title}</h3>
+  <div>
+    <span>Année: ${movie.year}</span>
+    <span>Durée: ${movie.duration}</span>
+    <span>Genre: ${movie.genre.join(", ")}</span>
+  </div>
+</div>
+    
+    `;
+  }
+
+  //console.log("movie", movie);
 }
