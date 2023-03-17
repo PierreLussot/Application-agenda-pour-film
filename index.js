@@ -29,6 +29,7 @@ movieForm.addEventListener("submit", addMovie);
 
 const movieList = document.getElementById("movie-list");
 
+movieList.addEventListener("click", deleteMovie);
 function addMovie(e) {
   e.preventDefault();
   const formData = new FormData(movieForm);
@@ -37,6 +38,7 @@ function addMovie(e) {
   const duration = formData.get("duration");
   const genre = formData.getAll("genre");
   const newMovie = {
+    id: Date.now(),
     title,
     year: Number(year),
     duration,
@@ -70,6 +72,7 @@ function displayMovie(date) {
     <span>Année: ${movie.year}</span>
     <span>Durée: ${movie.duration}</span>
     <span>Genre: ${movie.genre.join(", ")}</span>
+    <button data-id="${movie.id}">supprimer</button>
   </div>
 </div>
     
@@ -98,6 +101,7 @@ function displayMovies(movies) {
     <span>Année: ${movie.year}</span>
     <span>Durée: ${movie.duration}</span>
     <span>Genre: ${movie.genre.join(", ")}</span>
+    <button data-id="${movie.id}">supprimer</button>
   </div>
 </div>
     `;
@@ -105,4 +109,16 @@ function displayMovies(movies) {
   });
   console.log("content :", content);
   movieList.innerHTML = content.join("");
+}
+
+function deleteMovie(e) {
+  if (e.target.nodeName.toLowerCase() !== "button") {
+    return;
+  }
+  const movieId = Number(e.target.dataset.id);
+  console.log("movie ID :", movieId);
+  let movies = JSON.parse(localStorage.getItem("movies") || []);
+  movies = movies.filter((movie) => movie.id !== movieId);
+  localStorage.setItem("movies", JSON.stringify(movies));
+  displayMovie(selectedDate);
 }
