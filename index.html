@@ -15,16 +15,22 @@
     <div id="myCalendar" class="vanilla-calendar"></div>
     <h3>Ajout de film</h3>
     <div class="center">
-      <form>
+      <form id="movie-form">
         <div>
           <label for="title">Titre</label>
-          <input type="text" id="title" placeholder="titre du film" />
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="titre du film"
+          />
         </div>
         <div>
           <label for="year">Année</label>
           <input
             type="number"
             id="year"
+            name="year"
             min="1900"
             placeholder="Année"
             value="2010"
@@ -32,21 +38,26 @@
         </div>
         <div>
           <label for="duration">Durée</label>
-          <input type="text" id="duration" placeholder="Durée" />
+          <input
+            type="text"
+            name="duration"
+            id="duration"
+            placeholder="Durée"
+          />
         </div>
 
         <div>
           <label for="duration">Genre</label>
-          <select name="" id="genre" multiple size="9">
-            <option value="">Action</option>
-            <option value="">Comédie</option>
-            <option value="">Drama</option>
-            <option value="">Fantastique</option>
-            <option value="">Horreur</option>
-            <option value="">Policier</option>
-            <option value="">Romance</option>
-            <option value="">Science-fiction</option>
-            <option value="">Thriller</option>
+          <select id="genre" name="genre" multiple size="9">
+            <option>Action</option>
+            <option>Comédie</option>
+            <option>Drama</option>
+            <option>Fantastique</option>
+            <option>Horreur</option>
+            <option>Policier</option>
+            <option>Romance</option>
+            <option>Science-fiction</option>
+            <option>Thriller</option>
           </select>
         </div>
         <button type="submit">Ajouter le film</button>
