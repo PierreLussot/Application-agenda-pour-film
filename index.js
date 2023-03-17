@@ -3,6 +3,7 @@ const calendar = new VanillaCalendar({
   onSelect: (data, elem) => {
     selectedDate = new Date(data.date).toISOString().split("T")[0];
     //alert(`Vous avez sélectionné le ${selectedDate}`);
+    displayMovie(selectedDate);
   },
   months: [
     "Janvier",
@@ -33,12 +34,28 @@ function addMovie(e) {
   const year = formData.get("year");
   const duration = formData.get("duration");
   const genre = formData.getAll("genre");
-
-  console.log("movie", { title, year, duration, genre, selectedDate });
+  const newMovie = {
+    title,
+    year: Number(year),
+    duration,
+    genre,
+    date: selectedDate,
+  };
+  console.log("newMovie", newMovie);
+  saveMovie(newMovie);
+  movieForm.reset();
 }
 
 function saveMovie(movie) {
+  let movies = JSON.parse(localStorage.getItem("movies")) || [];
+  movies = [...movies, movie];
+  localStorage.setItem("movies", JSON.stringify(movies));
+}
 
-
-    
+function displayMovie(date) {
+  let movies = JSON.parse(localStorage.getItem("movies")) || [];
+  let movie = movies.find((m) => {
+    return m.date === date;
+  });
+  console.log("movie", movie);
 }
